@@ -39,7 +39,7 @@ window.addEventListener('load', () => {
     });
     computerPaddleX = canvas.width - 50;
     canvasContext = canvas.getContext('2d');
-    canvasContext.font = 'bold 15px serif';
+    canvasContext.font = '15px serif';
     canvasContext.textAlign = 'center';
     var fps = 30;
     setInterval(() => {
@@ -55,7 +55,8 @@ function draw() {
 
     if (showWinScreen) {
         console.log('exec');
-        colorText(winnningPlayer + " won, click mouse to continue", canvas.width / 2, canvas.height / 2, 200, 'white');
+        winnningPlayer = playerScore > computerScore? 'player' : 'computer';
+        colorText(winnningPlayer + " won, click to continue", canvas.width / 2, canvas.height / 2, 200, 'white');
         return
     }
 
@@ -108,8 +109,6 @@ function ballReset() {
     ballY = canvas.height / 2;
 }
 
-
-
 function move() {
     if (showWinScreen) {
         return;
@@ -127,9 +126,7 @@ function moveBall() {
         if (ballY <= playerPaddleY + PADDLE_HEIGHT && ballY >= playerPaddleY) {
             var deltaY = ballY - (playerPaddleY + PADDLE_HEIGHT / 2);
             ballSpeedY = deltaY * PADDLE_HIT_BALL_SPEED_Y_FACTOR;
-        }
-
-        if (ballY <= computerPaddleY + PADDLE_HEIGHT && ballY >= computerPaddleY) {
+        }else if (ballY <= computerPaddleY + PADDLE_HEIGHT && ballY >= computerPaddleY) {
             var deltaY = ballY - (computerPaddleY + PADDLE_HEIGHT / 2);
             ballSpeedY = deltaY * PADDLE_HIT_BALL_SPEED_Y_FACTOR;
         }
@@ -141,9 +138,6 @@ function moveBall() {
             playerScore++;
         }
         if (playerScore == MAX_SCORE || computerScore == MAX_SCORE) {
-            computerScore = 0;
-            playerScore = 0;
-            winnningPlayer = playerScore > computerScore ? 'player' : 'computer';
             showWinScreen = true;
         }
         ballReset();
