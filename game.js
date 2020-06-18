@@ -49,6 +49,12 @@ window.addEventListener('load', () => {
 
 })
 
+function drawNet() {
+    for(var i = 0; i < canvas.height; i += 40) {
+        colorRect(canvas.width/2 - 1, i, 2, 20, 'white')
+    }
+}
+
 function draw() {
     // World
     colorRect(0, 0, canvas.width, canvas.height, 'black');
@@ -59,6 +65,8 @@ function draw() {
         colorText(winnningPlayer + " won, click to continue", canvas.width / 2, canvas.height / 2, 200, 'white');
         return
     }
+
+    drawNet();
 
     //Player Paddle
     colorRect(PLAYER_PADDLE_X, playerPaddleY, PADDLE_WIDTH, PADDLE_HEIGHT, 'white');
